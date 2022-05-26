@@ -1,0 +1,17 @@
+.bdDiv {
+
+    background: linear-gradient(rgba(0, 0, 0, 0.5),
+            rgba(0, 0, 0, 0.5)), url('https://cdn.shopify.com/s/files/1/0108/7084/9593/files/photo-1466699189113-a3b204834b96.jpeg?v=1592584496');
+    background-size: cover;
+
+}
+
+.bdDiv p {
+    color: whitesmoke;
+
+}
+
+.bdDiv h2 {
+    color: whitesmoke;
+    font-weight: 900;
+}

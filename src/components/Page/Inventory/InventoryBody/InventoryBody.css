@@ -1,0 +1,27 @@
+.line {
+    border: 2px solid #3E3E3E;
+    width: 50px;
+    height: 0;
+}
+
+.seeMore {
+    font-size: 16px;
+    font-weight: 800;
+    color: #3E3E3E;
+    text-decoration: none !important;
+}
+
+.seeMore:hover {
+    font-size: 16px;
+    font-weight: 800;
+    color: #3E3E3E;
+    text-decoration: none !important;
+    transform: scalex(1.1);
+}
+
+
+.seeMore i {
+    font-size: 16px;
+    font-weight: 800;
+    color: #3E3E3E;
+}

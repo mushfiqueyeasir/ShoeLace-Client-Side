@@ -1,0 +1,30 @@
+.list {
+    list-style-type: none;
+}
+
+.list li:before {
+    font-family: 'FontAwesome';
+    content: '\f058';
+    margin: 0 15px 0 -15px;
+    color: lightskyblue;
+}
+
+.joinButton {
+    color: whitesmoke;
+    background-color: rgba(0, 0, 0, 0.897);
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 18px;
+    margin: 15px;
+    text-decoration: none;
+}
+
+.joinButton:hover {
+    color: black;
+    background-color: whitesmoke;
+    border: 2px solid black;
+    font-weight: 700;
+    text-decoration: none;
+}
