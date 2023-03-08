@@ -1,81 +1,40 @@
-import { Route, Routes } from 'react-router-dom';
-import Banner from './components/Page/Home/Banner/Banner';
-
-import InventoryBody from './components/Page/Inventory/InventoryBody/InventoryBody';
-import Join from './components/Page/Join/Join';
-import Header from './components/Shared/Header/Header';
-import UserAuth from './components/Auth/UserAuth/UserAuth'
-import Footer from './components/Shared/Footer/Footer';
-import AddItem from './components/Page/AddItem/AddItem';
-import MyItems from './components/Page/MyItems/MyItems';
-import RequireAuth from './components/Auth/RequireAuth/RequireAuth';
-import ManageInventory from './components/Page/ManageInventory/ManageInventory';
-import InventoryView from './components/Page/Inventory/InventoryView/InventoryView';
-import { useState } from 'react';
-import Error from './components/Shared/Error/Error';
-import Blog from './components/Blog/Blog';
-import AboutArticle from './components/Page/Home/AboutArticle/AboutArticle';
-import PromoArticle from './components/Page/Home/PromoArticle/PromoArticle';
+import { Navigate, Route, Routes } from "react-router-dom";
+import HomePage from "./page/HomePage";
+import InventoryPage from "./page/InventoryPage";
+import InventoryViewPage from "./page/InventoryViewPage";
+import ManageInventoryPage from "./page/ManageInventoryPage";
+import AddItemPage from "./page/AddItemPage";
+import MyItemPage from "./page/MyItemPage";
+import JoinPage from "./page/JoinPage";
+import ErrorPage from "./page/ErrorPage";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "./firebase.init";
+import Loading from "./components/Loading/Loading";
 
 function App() {
-  const [toggle, setToggle] = useState(false);
-  const navClick = (event) => {
-    if (!toggle) {
-      document.getElementById('carouselExampleCaptions').classList.remove('top');
-      setToggle(true)
-    } else {
-      document.getElementById('carouselExampleCaptions').classList.add('top');
-      setToggle(false)
-    }
-
+  const [user, loading] = useAuthState(auth);
+  if (loading) {
+    return <Loading />;
   }
   return (
     <div>
-      <Header navClick={navClick} />
       <Routes>
-        <Route path='/' element={<><Banner /> <AboutArticle /> <InventoryBody /><PromoArticle /> <Footer /></>}></Route>
-        <Route path='/home' element={<><Banner />  <AboutArticle /><InventoryBody /> <PromoArticle /><Footer /></>}></Route>
-        <Route path='/inventory' element={<><InventoryBody></InventoryBody></>}></Route>
+        <Route path="/" element={<Navigate to="/home" />} />
+        <Route path="/home" element={<HomePage />} />
 
-        <Route path='/inventory/:id' element={
-          <RequireAuth>
-            <InventoryView></InventoryView>
-          </RequireAuth>
-        }></Route>
+        <Route path="/inventory" element={<InventoryPage />} />
+        <Route path="/inventory/:id" element={<InventoryViewPage />} />
 
-        <Route path='/blog' element={<Blog />}></Route>
+        <Route path="/manageItems" element={<ManageInventoryPage />} />
 
-        <Route path='/manageItems' element={
-          <RequireAuth>
-            <> <ManageInventory /> </>
+        <Route path="/addItem" element={<AddItemPage user={user} />} />
 
-          </RequireAuth>
-        }></Route>
+        <Route path="/myItem" element={<MyItemPage user={user} />} />
 
-        <Route path='/addItem' element={
-          <RequireAuth>
-            <AddItem></AddItem>
-          </RequireAuth>
-        }></Route>
+        <Route path="/join" element={<JoinPage />} />
 
-        <Route path='/myItem' element={
-          <RequireAuth>
-            <MyItems></MyItems>
-          </RequireAuth>
-        }></Route>
-
-        <Route path='/join' element={
-          <UserAuth>
-            <Join></Join>
-          </UserAuth>
-        }></Route>
-        <Route path='*' element={<Error />}></Route>
-
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
-
-
-
-
     </div>
   );
 }
